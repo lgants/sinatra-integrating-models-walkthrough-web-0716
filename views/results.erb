@@ -1,9 +1,12 @@
 <h1> Your Text Analysis </h1>
 
-<h2>Number of Words:</h2>
+<h2>Number of Words:<%= params[:user_text].split(" ").size %></h2>
 
-<h2>Vowels:</h2>
+<h2>Vowels:<%=params[:user_text].downcase.scan(/[aeiou]/).count %></h2>
 
-<h2>Consonants:</h2>
+<h2>Consonants:<%=params[:user_text].downcase.split(" ").join("").scan(/[^aeiou ]/).count %></h2>
 
-<h2>Most Common Letter:___ used ___ times</h2>
+<% string = params[:user_text] %>
+<% arr = string.downcase.gsub(/[^a-z]/, '').chars %>
+<% hash = string.downcase.chars.uniq.map { |c| [c, arr.count(c)] }.max_by(&:last)%>
+<h2>Most Common Letter: <%= hash.to_s[2].upcase %>, used <%= hash.to_s[6] %> times</h2>
